@@ -47,7 +47,7 @@ public class Usuario implements Serializable{
 	private String password;
 	
 	@Transient
-	private String confirmarpassword;
+	private String confirmPassword;
 	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "usuario_perfiles",
@@ -58,11 +58,6 @@ public class Usuario implements Serializable{
 	public Usuario() {
 		super();
 		
-	}
-
-	public Usuario(Long id) {
-		super();
-		this.id = id;
 	}
 
 	public Long getId() {
@@ -113,12 +108,12 @@ public class Usuario implements Serializable{
 		this.password = password;
 	}
 
-	public String getConfirmarpassword() {
-		return confirmarpassword;
+	public String getConfirmPassword() {
+		return confirmPassword;
 	}
 
-	public void setConfirmarpassword(String confirmarpassword) {
-		this.confirmarpassword = confirmarpassword;
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 
 	public Set<Perfil> getPerfiles() {
@@ -130,18 +125,11 @@ public class Usuario implements Serializable{
 	}
 
 	@Override
-	public String toString() {
-		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", email=" + email + ", usuario="
-				+ usuario + ", password=" + password + ", confirmarpassword=" + confirmarpassword + ", perfiles="
-				+ perfiles + "]";
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((apellido == null) ? 0 : apellido.hashCode());
-		result = prime * result + ((confirmarpassword == null) ? 0 : confirmarpassword.hashCode());
+		result = prime * result + ((confirmPassword == null) ? 0 : confirmPassword.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
@@ -165,10 +153,10 @@ public class Usuario implements Serializable{
 				return false;
 		} else if (!apellido.equals(other.apellido))
 			return false;
-		if (confirmarpassword == null) {
-			if (other.confirmarpassword != null)
+		if (confirmPassword == null) {
+			if (other.confirmPassword != null)
 				return false;
-		} else if (!confirmarpassword.equals(other.confirmarpassword))
+		} else if (!confirmPassword.equals(other.confirmPassword))
 			return false;
 		if (email == null) {
 			if (other.email != null)
@@ -202,6 +190,17 @@ public class Usuario implements Serializable{
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", email=" + email + ", usuario="
+				+ usuario + ", password=" + password + ", confirmPassword=" + confirmPassword + ", perfiles=" + perfiles
+				+ "]";
+	}
+	
+	
+	
+
 	
 	
 	
