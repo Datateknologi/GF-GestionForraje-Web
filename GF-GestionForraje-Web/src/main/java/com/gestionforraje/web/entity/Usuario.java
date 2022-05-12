@@ -13,7 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
-
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -32,21 +34,29 @@ public class Usuario implements Serializable{
 	private Long id;
 	
 	@Column
+	@NotBlank
+	@Size(min=4,max=10,message="No se cumplen las reglas del tamaño min=4, max=10")
 	private String nombre;
 	
 	@Column
+	@NotBlank
+	@Size(min=4,max=10,message="No se cumplen las reglas del tamaño min=4, max=10")
 	private String apellido;
 	
 	@Column
+	@NotBlank
 	private String email;
 	
 	@Column
+	@NotBlank
 	private String usuario;
 	
 	@Column
+	@NotBlank
 	private String password;
 	
 	@Transient
+	@NotBlank
 	private String confirmPassword;
 	
 	@ManyToMany(fetch = FetchType.LAZY)
