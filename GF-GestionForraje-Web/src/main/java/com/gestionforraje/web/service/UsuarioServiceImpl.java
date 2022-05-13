@@ -49,7 +49,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 	@Override
 	public Usuario getUserById(Long id) throws Exception {
 		
-		return repository.findById(id).orElseThrow(()-> new Exception("El Usuario para editar no existe"));
+		return repository.findById(id).orElseThrow(()-> new Exception("El Usuario no existe"));
 	}
 
 	@Override
@@ -67,6 +67,13 @@ public class UsuarioServiceImpl implements UsuarioService{
 		to.setEmail(from.getEmail());
 		to.setPerfiles(from.getPerfiles());
 	
+	}
+
+	@Override
+	public void deleteUser(Long id) throws Exception {
+		Usuario user = getUserById(id);
+		repository.delete(user);
+		
 	}
 
 
