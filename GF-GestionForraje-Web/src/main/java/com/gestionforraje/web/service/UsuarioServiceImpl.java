@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gestionforraje.web.dto.ChangePasswordForm;
 import com.gestionforraje.web.entity.Usuario;
 import com.gestionforraje.web.repository.UsuarioRepository;
 
@@ -74,6 +75,26 @@ public class UsuarioServiceImpl implements UsuarioService{
 		Usuario user = getUserById(id);
 		repository.delete(user);
 		
+	}
+
+	@Override
+	public Usuario changePassword(ChangePasswordForm form) throws Exception {
+		Usuario user = getUserById(form.getId());
+		
+		
+		if(!user.getPassword().equals(form.getCurrentPassword())) {
+			throw new Exception("Password Actual es Incorrecto.");
+		
+		}
+		if(user.getPassword().equals(form.getNewPassword())) {
+			throw new Exception ("Nuevo Password debe ser diferente al Password Actual.");
+		}
+		if(!form.getNewPassword().equals(form.getConfirmPassword())) {
+			throw new Exception ("Nuevo Password y Confirmar Password No coinciden.");
+		}
+		
+		user.setPassword(form.getNewPassword());
+		return repository.save(user);
 	}
 
 
