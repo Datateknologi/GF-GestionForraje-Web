@@ -28,6 +28,10 @@ public class UsuarioServiceImpl implements UsuarioService{
 	}
 	
 	private boolean checkPasswordValid(Usuario user) throws Exception {
+		
+		if (user.getConfirmPassword() == null || user.getConfirmPassword().isEmpty()) {
+			throw new Exception("Confirm Password es obligatorio");
+		}
 		if(!user.getPassword().equals(user.getConfirmPassword())) {
 			throw new Exception("Password y Confirm Password no son iguales");
 		}
@@ -41,4 +45,29 @@ public class UsuarioServiceImpl implements UsuarioService{
 		}
 		return user;
 	}
+
+	@Override
+	public Usuario getUserById(Long id) throws Exception {
+		
+		return repository.findById(id).orElseThrow(()-> new Exception("El Usuario para editar no existe"));
+	}
+
+	@Override
+	public Usuario updateUser(Usuario fromUser) throws Exception {
+		Usuario toUser = getUserById(fromUser.getId());
+		mapUser(fromUser, toUser);
+		return repository.save(toUser);
+
+		}
+
+	protected void mapUser(Usuario from,Usuario to) {
+		to.setUsuario(from.getUsuario());
+		to.setNombre(from.getNombre());
+		to.setApellido(from.getApellido());
+		to.setEmail(from.getEmail());
+		to.setPerfiles(from.getPerfiles());
+	
+	}
+
+
 }

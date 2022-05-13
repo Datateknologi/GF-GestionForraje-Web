@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gestionforraje.web.entity.Usuario;
@@ -65,5 +66,49 @@ public class UsuarioController {
 		model.addAttribute("perfiles", perfilRepository.findAll());
 		model.addAttribute("userList", usuarioService.getAllUsers());
 		return "user-form/user-view";
+	}
+	
+	@GetMapping("/editUser/{id}")
+	public String getEditUserForm(Model model, @PathVariable(name="id")Long id)throws Exception{
+		Usuario userToEdit = usuarioService.getUserById(id);
+		
+		model.addAttribute("userForm", userToEdit);
+		model.addAttribute("perfiles", perfilRepository.findAll());
+		model.addAttribute("userList", usuarioService.getAllUsers());
+		model.addAttribute("formTab","active");
+		model.addAttribute("editMode","true");
+	
+	    return "user-form/user-view";
+	}
+	
+	@PostMapping("/editUser")
+	public String postEditUserForm(@Valid @ModelAttribute("userForm")Usuario user, BindingResult result, ModelMap model) {
+		if(result.hasErrors()) {
+			model.addAttribute("userForm", user);
+			model.addAttribute("formTab","active");
+			model.addAttribute("editMode","true");
+		}else {
+			try {
+				usuarioService.updateUser(user);
+				model.addAttribute("userForm", new Usuario());
+				model.addAttribute("listTab","active");
+			} catch (Exception e) {
+				model.addAttribute("formErrorMessage",e.getMessage());
+				model.addAttribute("userForm", user);
+				model.addAttribute("formTab","active");
+				model.addAttribute("perfiles", perfilRepository.findAll());
+				model.addAttribute("userList", usuarioService.getAllUsers());
+				model.addAttribute("editMode","true");
+			}
+		}
+		
+		model.addAttribute("perfiles", perfilRepository.findAll());
+		model.addAttribute("userList", usuarioService.getAllUsers());
+		return "user-form/user-view";
+	}
+	
+	@GetMapping("/userForm/cancel")
+	public String cancelEditUser(ModelMap model) {
+		return "redirect:/userForm";
 	}
 }
