@@ -11,15 +11,19 @@
 		</tr>
 		</thead>
 		<tbody>
-		<tr th:each="usuario: ${userList}">
-			<td th:text="${usuario.id}"></td>
-			<td th:text="${usuario.nombre}"></td>
-			<td th:text="${usuario.apellido}"></td>
-			<td th:text="${usuario.usuario}"></td>
-			<td th:text="${usuario.email}"></td>
+		<tr th:each="user: ${userList}">
+			<td th:text="${user.id}"></td>
+			<td th:text="${user.nombre}"></td>
+			<td th:text="${user.apellido}"></td>
+			<td th:text="${user.usuario}"></td>
+			<td th:text="${user.email}"></td>
 			<td>
-				<a href="#" th:href="@{'/editUser/'+ ${usuario.id}}"><i class="fas fa-edit"></i></a>
-				| <a href="#" th:onclick="'javascript:confirmDelete(\''+ ${usuario.id} +'\');'"><i class="fas fa-user-times"></i></a>
+				<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_USER'')')} and ${#httpServletRequest.remoteUser==user.usuario})">
+   					<a href="#" th:href="@{'/editUser/'+ ${user.id}}"><i class="fas fa-edit"></i></a>
+				</span>
+				<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" >
+	 				<a href="#" th:onclick="'javascript:confirmDelete(\''+ ${user.id} +'\');'"><i class="fas fa-user-times"></i></a>
+				</span>
 			</td>
 		</tr>
 		</tbody>

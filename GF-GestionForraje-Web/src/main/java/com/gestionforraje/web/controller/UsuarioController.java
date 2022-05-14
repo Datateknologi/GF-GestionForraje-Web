@@ -35,7 +35,7 @@ public class UsuarioController {
 	@Autowired
 	UsuarioService usuarioService;
 	
-	@GetMapping("/")
+	@GetMapping({"/","/login"})
 	public String index() {
 		return "index";
 	}

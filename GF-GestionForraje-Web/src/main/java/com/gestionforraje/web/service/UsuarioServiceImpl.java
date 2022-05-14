@@ -3,6 +3,9 @@ package com.gestionforraje.web.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.gestionforraje.web.dto.ChangePasswordForm;
@@ -14,6 +17,9 @@ public class UsuarioServiceImpl implements UsuarioService{
 	
 	@Autowired
 	UsuarioRepository repository;
+	
+	@Autowired
+	BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Override
 	public Iterable<Usuario> getAllUsers() {
@@ -42,6 +48,10 @@ public class UsuarioServiceImpl implements UsuarioService{
 	@Override
 	public Usuario createUser(Usuario user) throws Exception {
 		if(checkUsernameAvailable(user)&& checkPasswordValid(user)) {
+			
+			String encodePassword = bCryptPasswordEncoder.encode(user.getPassword());
+			user.setPassword(encodePassword);
+			
 			user = repository.save(user);
 		}
 		return user;
@@ -82,20 +92,56 @@ public class UsuarioServiceImpl implements UsuarioService{
 		Usuario user = getUserById(form.getId());
 		
 		
-		if(!user.getPassword().equals(form.getCurrentPassword())) {
-			throw new Exception("Password Actual es Incorrecto.");
+		if( !isLoggedUserADMIN() && !user.getPassword().equals(form.getCurrentPassword())) {
+			throw new Exception("Password Actual Incorrecto.");
 		
 		}
 		if(user.getPassword().equals(form.getNewPassword())) {
-			throw new Exception ("Nuevo Password debe ser diferente al Password Actual.");
+			throw new Exception ("Nuevo Password debe ser diferente al Password actual.");
 		}
 		if(!form.getNewPassword().equals(form.getConfirmPassword())) {
-			throw new Exception ("Nuevo Password y Confirmar Password No coinciden.");
+			throw new Exception ("Nuevo Password y Current Password no coinciden.");
 		}
 		
-		user.setPassword(form.getNewPassword());
+		String encodePassword = bCryptPasswordEncoder.encode(form.getNewPassword());
+		user.setPassword(encodePassword);
 		return repository.save(user);
 	}
+	
+	public boolean isLoggedUserADMIN(){
+		 return loggedUserHasRole("ROLE_ADMIN");
+		}
+
+		public boolean loggedUserHasRole(String role) {
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			UserDetails loggedUser = null;
+			Object roles = null; 
+			if (principal instanceof UserDetails) {
+				loggedUser = (UserDetails) principal;
+			
+				roles = loggedUser.getAuthorities().stream()
+						.filter(x -> role.equals(x.getAuthority() ))      
+						.findFirst().orElse(null); //loggedUser = null;
+			}
+			return roles != null ?true :false;
+		}
+		
+		public Usuario getLoggedUser() throws Exception {
+			//Obtener el usuario logeado
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			
+			UserDetails loggedUser = null;
+
+			//Verificar que ese objeto traido de sesion es el usuario
+			if (principal instanceof UserDetails) {
+				loggedUser = (UserDetails) principal;
+			}
+			
+			Usuario myUser = repository
+					.findByUsuario(loggedUser.getUsername()).orElseThrow(() -> new Exception("Problemas obteniendo usuario de sesion."));
+			
+			return myUser;
+		}
 
 
 }
