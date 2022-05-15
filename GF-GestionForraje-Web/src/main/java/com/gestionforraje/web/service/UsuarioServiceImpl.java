@@ -3,11 +3,13 @@ package com.gestionforraje.web.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.gestionforraje.web.Exeption.UsernameOrIdNotFound;
 import com.gestionforraje.web.dto.ChangePasswordForm;
 import com.gestionforraje.web.entity.Usuario;
 import com.gestionforraje.web.repository.UsuarioRepository;
@@ -58,9 +60,9 @@ public class UsuarioServiceImpl implements UsuarioService{
 	}
 
 	@Override
-	public Usuario getUserById(Long id) throws Exception {
+	public Usuario getUserById(Long id) throws UsernameOrIdNotFound {
 		
-		return repository.findById(id).orElseThrow(()-> new Exception("El Usuario no existe"));
+		return repository.findById(id).orElseThrow(()-> new UsernameOrIdNotFound("El Id del Usuario no existe"));
 	}
 
 	@Override
@@ -81,7 +83,8 @@ public class UsuarioServiceImpl implements UsuarioService{
 	}
 
 	@Override
-	public void deleteUser(Long id) throws Exception {
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+	public void deleteUser(Long id) throws UsernameOrIdNotFound {
 		Usuario user = getUserById(id);
 		repository.delete(user);
 		
@@ -92,7 +95,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 		Usuario user = getUserById(form.getId());
 		
 		
-		if( !isLoggedUserADMIN() && !user.getPassword().equals(form.getCurrentPassword())) {
+		if( !isLoggedUserADMIN() && !bCryptPasswordEncoder.matches(form.getCurrentPassword(),user.getPassword())) {
 			throw new Exception("Password Actual Incorrecto.");
 		
 		}
