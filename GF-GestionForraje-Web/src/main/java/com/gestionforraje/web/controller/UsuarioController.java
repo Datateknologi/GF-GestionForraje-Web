@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.gestionforraje.web.Exeption.CustomeFieldValidationException;
 import com.gestionforraje.web.Exeption.UsernameOrIdNotFound;
 import com.gestionforraje.web.dto.ChangePasswordForm;
+import com.gestionforraje.web.entity.Predio;
 import com.gestionforraje.web.entity.Usuario;
 import com.gestionforraje.web.repository.PerfilRepository;
 import com.gestionforraje.web.repository.UsuarioRepository;
+import com.gestionforraje.web.service.PredioService;
 import com.gestionforraje.web.service.UsuarioService;
 
 @Controller
@@ -36,6 +38,9 @@ public class UsuarioController {
 	
 	@Autowired
 	UsuarioService usuarioService;
+	
+	@Autowired
+	PredioService predioService;
 	
 	@GetMapping({"/","/login"})
 	public String index() {
@@ -159,7 +164,10 @@ public class UsuarioController {
  	}
 
 	@GetMapping("/predioForm")
-	 public String getPredioForm(){
+	 public String getPredioForm(Model model){
+		 model.addAttribute("predioForm", new Predio());
+		 model.addAttribute("predioList", predioService.getAllPredios());
+		 model.addAttribute("listTab","active");
 		 return "predio-form/predio-view";
 	 }
 }
