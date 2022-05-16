@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.gestionforraje.web.Exeption.CustomeFieldValidationException;
 import com.gestionforraje.web.Exeption.UsernameOrIdNotFound;
 import com.gestionforraje.web.dto.ChangePasswordForm;
 import com.gestionforraje.web.entity.Usuario;
@@ -60,6 +61,14 @@ public class UsuarioController {
 				usuarioService.createUser(user);
 				model.addAttribute("userForm", new Usuario());
 				model.addAttribute("listTab","active");
+			
+			} catch (CustomeFieldValidationException cfve) {
+				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
+				model.addAttribute("userForm", user);
+				model.addAttribute("formTab","active");
+				model.addAttribute("perfiles", perfilRepository.findAll());
+				model.addAttribute("userList", usuarioService.getAllUsers());
+			
 			} catch (Exception e) {
 				model.addAttribute("formErrorMessage",e.getMessage());
 				model.addAttribute("userForm", user);

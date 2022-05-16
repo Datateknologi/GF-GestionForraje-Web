@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.gestionforraje.web.Exeption.CustomeFieldValidationException;
 import com.gestionforraje.web.Exeption.UsernameOrIdNotFound;
 import com.gestionforraje.web.dto.ChangePasswordForm;
 import com.gestionforraje.web.entity.Usuario;
@@ -31,7 +32,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 	private boolean checkUsernameAvailable(Usuario user) throws Exception {
 		Optional<Usuario> userFound = repository.findByUsuario(user.getUsuario());
 		if(userFound.isPresent()) {
-			throw new Exception("Usuario no diponible");
+			throw new CustomeFieldValidationException("Usuario no diponible","usuario");
 		}
 		return true;
 	}
@@ -39,10 +40,10 @@ public class UsuarioServiceImpl implements UsuarioService{
 	private boolean checkPasswordValid(Usuario user) throws Exception {
 		
 		if (user.getConfirmPassword() == null || user.getConfirmPassword().isEmpty()) {
-			throw new Exception("Confirm Password es obligatorio");
+			throw new CustomeFieldValidationException("Confirm Password es obligatorio","confirmPassword");
 		}
 		if(!user.getPassword().equals(user.getConfirmPassword())) {
-			throw new Exception("Password y Confirm Password no son iguales");
+			throw new CustomeFieldValidationException("Password y Confirm Password no son iguales","password");
 		}
 		return true;
 	}
