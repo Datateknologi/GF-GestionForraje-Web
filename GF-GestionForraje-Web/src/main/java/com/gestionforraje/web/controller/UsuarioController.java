@@ -158,7 +158,7 @@ public class UsuarioController {
  		return ResponseEntity.ok("Success");
  	}
 
-	 @GetMapping("/predioForm")
+	@GetMapping("/predioForm")
 	 public String getPredioForm(){
 		 return "predio-form/predio-view";
 	 }
