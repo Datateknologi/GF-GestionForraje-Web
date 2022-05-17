@@ -42,6 +42,7 @@ public class UsuarioController {
 	@Autowired
 	PredioService predioService;
 	
+	
 	@GetMapping({"/","/login"})
 	public String index() {
 		return "index";
@@ -162,7 +163,7 @@ public class UsuarioController {
 		}
  		return ResponseEntity.ok("Success");
  	}
-
+	
 	@GetMapping("/predioForm")
 	 public String getPredioForm(Model model){
 		 model.addAttribute("predioForm", new Predio());
@@ -170,4 +171,30 @@ public class UsuarioController {
 		 model.addAttribute("listTab","active");
 		 return "predio-form/predio-view";
 	 }
+
+	 @PostMapping("/predioForm")
+	 public String createPredio(@Valid @ModelAttribute("predioForm")Predio predio, BindingResult result,ModelMap model){
+		 if(result.hasErrors()) {
+			model.addAttribute("predioForm", predio);
+			model.addAttribute("formTab","active");
+			
+		 }else {
+			try {
+				predioService.createPredio(predio);
+				model.addAttribute("predioForm", new Predio());
+				model.addAttribute("listTab","active");
+			
+			} catch (Exception e) {
+				model.addAttribute("formErrorMessage",e.getMessage());
+				model.addAttribute("predioForm", predio);
+				model.addAttribute("formTab","active");
+				model.addAttribute("predioList", predioService.getAllPredios());
+			
+			}
+		}
+		 model.addAttribute("predioList", predioService.getAllPredios());
+		 return "predio-form/predio-view";
+	 }
+
+	
 }

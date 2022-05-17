@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -26,12 +28,15 @@ public class Predio implements Serializable{
 	private Long id;
 
 	@Column
+	@NotBlank
 	private String nombre;
 
 	@Column
-	private long areaHa;
+	@NotNull
+	private Long areaHa;
 
 	@Column
+	@NotBlank
 	private String observaciones;
 
 		
@@ -51,7 +56,7 @@ public class Predio implements Serializable{
 	}
 
 
-	public Predio(Long id, String nombre, long areaHa, String observaciones) {
+	public Predio(Long id, String nombre, Long areaHa, String observaciones) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -80,12 +85,12 @@ public class Predio implements Serializable{
 	}
 
 
-	public long getAreaHa() {
+	public Long getAreaHa() {
 		return areaHa;
 	}
 
 
-	public void setAreaHa(long areaHa) {
+	public void setAreaHa(Long areaHa) {
 		this.areaHa = areaHa;
 	}
 
@@ -104,7 +109,7 @@ public class Predio implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (areaHa ^ (areaHa >>> 32));
+		result = prime * result + ((areaHa == null) ? 0 : areaHa.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		result = prime * result + ((observaciones == null) ? 0 : observaciones.hashCode());
@@ -121,7 +126,10 @@ public class Predio implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Predio other = (Predio) obj;
-		if (areaHa != other.areaHa)
+		if (areaHa == null) {
+			if (other.areaHa != null)
+				return false;
+		} else if (!areaHa.equals(other.areaHa))
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -148,10 +156,4 @@ public class Predio implements Serializable{
 				+ "]";
 	}
 	
-	
-	
-	
-
-	
-
 }
