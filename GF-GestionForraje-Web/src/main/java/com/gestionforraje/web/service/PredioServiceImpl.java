@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gestionforraje.web.entity.Predio;
+import com.gestionforraje.web.entity.Usuario;
 import com.gestionforraje.web.repository.PredioRepository;
 
 @Service
@@ -34,5 +35,24 @@ public class PredioServiceImpl implements PredioService{
 		}
 		return predio;
 	}
+
+	@Override
+	public Predio getPredioById(Long id) throws Exception {
+		return repository.findById(id).orElseThrow(() -> new Exception("El Predio para editar no existe"));
+	}
+
+	@Override
+	public Predio updatePredio(Predio fromPredio) throws Exception {
+		Predio toPredio = getPredioById(fromPredio.getId());
+		mapPredio(fromPredio, toPredio);
+		return repository.save(toPredio);
+	}
+	
+	protected void mapPredio(Predio from,Predio to) {
+		to.setNombre(from.getNombre());
+		to.setAreaHa(from.getAreaHa());
+		to.setObservaciones(from.getObservaciones());	
+	}
+
 
 }

@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.gestionforraje.web.Exeption.CustomeFieldValidationException;
 import com.gestionforraje.web.Exeption.UsernameOrIdNotFound;
 import com.gestionforraje.web.dto.ChangePasswordForm;
-import com.gestionforraje.web.entity.Predio;
 import com.gestionforraje.web.entity.Usuario;
 import com.gestionforraje.web.repository.PerfilRepository;
 import com.gestionforraje.web.repository.UsuarioRepository;
@@ -41,6 +40,8 @@ public class UsuarioController {
 	
 	@Autowired
 	PredioService predioService;
+	
+	
 	
 	
 	@GetMapping({"/","/login"})
@@ -163,38 +164,5 @@ public class UsuarioController {
 		}
  		return ResponseEntity.ok("Success");
  	}
-	
-	@GetMapping("/predioForm")
-	 public String getPredioForm(Model model){
-		 model.addAttribute("predioForm", new Predio());
-		 model.addAttribute("predioList", predioService.getAllPredios());
-		 model.addAttribute("listTab","active");
-		 return "predio-form/predio-view";
-	 }
-
-	 @PostMapping("/predioForm")
-	 public String createPredio(@Valid @ModelAttribute("predioForm")Predio predio, BindingResult result,ModelMap model){
-		 if(result.hasErrors()) {
-			model.addAttribute("predioForm", predio);
-			model.addAttribute("formTab","active");
-			
-		 }else {
-			try {
-				predioService.createPredio(predio);
-				model.addAttribute("predioForm", new Predio());
-				model.addAttribute("listTab","active");
-			
-			} catch (Exception e) {
-				model.addAttribute("formErrorMessage",e.getMessage());
-				model.addAttribute("predioForm", predio);
-				model.addAttribute("formTab","active");
-				model.addAttribute("predioList", predioService.getAllPredios());
-			
-			}
-		}
-		 model.addAttribute("predioList", predioService.getAllPredios());
-		 return "predio-form/predio-view";
-	 }
-
 	
 }
