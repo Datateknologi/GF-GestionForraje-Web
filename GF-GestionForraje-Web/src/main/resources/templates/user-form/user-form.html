@@ -37,7 +37,7 @@
 				<option th:each="perfil :${perfiles}" th:value="${perfil.id}" th:text="${perfil.nombre}">
 				</option>
 			</select>
-			<div class="alert-danger" th:if="${#fields.hasErrors('perfiles')}" th:errors="*{perfiles}">Name Error</div>
+			<div class="alert-danger text-center" th:if="${#fields.hasErrors('perfiles')}" th:errors="*{perfiles}">Name Error</div>
 		</div>
 	</div>
 	<div class="form-group row" th:if="${editMode==null or editMode==false}">
