@@ -38,7 +38,7 @@ public class PredioServiceImpl implements PredioService{
 
 	@Override
 	public Predio getPredioById(Long id) throws Exception {
-		return repository.findById(id).orElseThrow(() -> new Exception("El Predio para editar no existe"));
+		return repository.findById(id).orElseThrow(() -> new Exception("El Predio no existe"));
 	}
 
 	@Override
@@ -52,6 +52,13 @@ public class PredioServiceImpl implements PredioService{
 		to.setNombre(from.getNombre());
 		to.setAreaHa(from.getAreaHa());
 		to.setObservaciones(from.getObservaciones());	
+	}
+
+	@Override
+	public void deletePredio(Long id) throws Exception {
+		Predio predio = getPredioById(id);
+		repository.delete(predio);
+		
 	}
 
 

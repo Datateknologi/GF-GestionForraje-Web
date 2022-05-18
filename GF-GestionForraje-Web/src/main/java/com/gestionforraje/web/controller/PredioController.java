@@ -24,7 +24,7 @@ public class PredioController {
 	
 	
 	@GetMapping("/predioForm")
-	 public String getPredioForm(Model model){
+	 public String predioForm(Model model){
 		 model.addAttribute("predioForm", new Predio());
 		 model.addAttribute("predioList", predioService.getAllPredios());
 		 model.addAttribute("listTab","active");
@@ -95,5 +95,15 @@ public class PredioController {
 		public String cancelEditPredio(ModelMap model) {
 			return "redirect:/predioForm";
 		}
+	 
+	 @GetMapping("/deletePredio/{id}")
+	 public String deletePredio(Model model, @PathVariable(name="id")Long id) {
+		 try {
+			predioService.deletePredio(id);
+		} catch (Exception e) {
+			model.addAttribute("listErrorMessage",e.getMessage());
+		}
+		 return "redirect:/predioForm";
+	 }
 	
 }

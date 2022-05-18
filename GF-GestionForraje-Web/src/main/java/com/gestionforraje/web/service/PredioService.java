@@ -13,5 +13,7 @@ public interface PredioService {
     public Predio getPredioById(Long id) throws Exception;
 
     public Predio updatePredio(Predio predio) throws Exception;
+    
+    public void deletePredio(Long id) throws Exception;
 
 }

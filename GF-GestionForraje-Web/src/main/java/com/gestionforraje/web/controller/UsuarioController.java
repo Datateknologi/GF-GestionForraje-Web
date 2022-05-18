@@ -145,7 +145,7 @@ public class UsuarioController {
 		} catch (UsernameOrIdNotFound uoin) {
 			model.addAttribute("listErrorMessage",uoin.getMessage());
 		}
-		return userForm(model);
+		return "redirect:/userForm";
 	}
 
 	@PostMapping("/editUser/changePassword")
