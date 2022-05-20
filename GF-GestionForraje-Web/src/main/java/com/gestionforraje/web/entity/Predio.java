@@ -1,6 +1,7 @@
 package com.gestionforraje.web.entity;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -37,38 +39,31 @@ public class Predio implements Serializable{
 	@Column
 	@NotNull
 	private Long areaHa;
-
+	
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "predio")
+    private List<Potrero> potreros;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "predio")
+    private List<Lote> lotes;
+    
 	@Column
 	@NotBlank
 	private String observaciones;
-
-		
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "predio_potreros",
-				joinColumns = @JoinColumn(name="predio_id"),
-				inverseJoinColumns = @JoinColumn(name="potrero_id"))
-	private Set<Potrero> potreros;
-	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "predio_lotes",
-				joinColumns = @JoinColumn(name="predio_id"),
-				inverseJoinColumns = @JoinColumn(name="lote_id"))
-	private Set<Lote> lotes;
-	
 	
     public Predio() {
     	super();
     }
-    
-	public Predio(Long id, @NotBlank String nombre, @NotNull Long areaHa, @NotBlank String observaciones,
-			Set<Potrero> potreros, Set<Lote> lotes) {
+
+	public Predio(Long id, @NotBlank String nombre, @NotNull Long areaHa, List<Potrero> potreros, List<Lote> lotes,
+			@NotBlank String observaciones) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.areaHa = areaHa;
-		this.observaciones = observaciones;
 		this.potreros = potreros;
 		this.lotes = lotes;
+		this.observaciones = observaciones;
 	}
 
 	public Long getId() {
@@ -95,28 +90,28 @@ public class Predio implements Serializable{
 		this.areaHa = areaHa;
 	}
 
+	public List<Potrero> getPotreros() {
+		return potreros;
+	}
+
+	public void setPotreros(List<Potrero> potreros) {
+		this.potreros = potreros;
+	}
+
+	public List<Lote> getLotes() {
+		return lotes;
+	}
+
+	public void setLotes(List<Lote> lotes) {
+		this.lotes = lotes;
+	}
+
 	public String getObservaciones() {
 		return observaciones;
 	}
 
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
-	}
-
-	public Set<Potrero> getPotreros() {
-		return potreros;
-	}
-
-	public void setPotreros(Set<Potrero> potreros) {
-		this.potreros = potreros;
-	}
-
-	public Set<Lote> getLotes() {
-		return lotes;
-	}
-
-	public void setLotes(Set<Lote> lotes) {
-		this.lotes = lotes;
 	}
 
 	@Override
@@ -176,15 +171,11 @@ public class Predio implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Predio [id=" + id + ", nombre=" + nombre + ", areaHa=" + areaHa + ", observaciones=" + observaciones
-				+ ", potreros=" + potreros + ", lotes=" + lotes + "]";
+		return "Predio [id=" + id + ", nombre=" + nombre + ", areaHa=" + areaHa + ", potreros=" + potreros + ", lotes="
+				+ lotes + ", observaciones=" + observaciones + "]";
 	}
-	
-	
-	
-	
-
 
 	
-	
+    	
+    
 }

@@ -73,21 +73,9 @@ public class Usuario implements Serializable{
 		super();
 	}
 
-	public Usuario(Long id,
-			@NotBlank @Size(min = 4, max = 10, message = "No se cumplen las reglas del tamaño min=4, max=10") String nombre,
-			@NotBlank @Size(min = 4, max = 10, message = "No se cumplen las reglas del tamaño min=4, max=10") String apellido,
-			@NotBlank String email, @NotBlank String usuario, @NotBlank String password, String confirmPassword,
-			Set<Perfil> perfiles, List<Recorrida> recoridas) {
+	public Usuario(Long id) {
 		super();
 		this.id = id;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.email = email;
-		this.usuario = usuario;
-		this.password = password;
-		this.confirmPassword = confirmPassword;
-		this.perfiles = perfiles;
-		this.recoridas = recoridas;
 	}
 
 	public Long getId() {
@@ -241,14 +229,7 @@ public class Usuario implements Serializable{
 				+ usuario + ", password=" + password + ", confirmPassword=" + confirmPassword + ", perfiles=" + perfiles
 				+ ", recoridas=" + recoridas + "]";
 	}
-	
-	
-	
-	
 
-	
-	
-	
 	
 	
 	

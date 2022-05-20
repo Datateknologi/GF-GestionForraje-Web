@@ -53,7 +53,29 @@ public class Recorrida implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+	
+	
+	public Recorrida() {
+		super();
+	}
 
+	public Recorrida(Long id, String numero, Set<Potrero> potreros, Date fecha, Long kgMsHa, Long hojas, Long nudos,
+			String observaciones, Usuario usuario) {
+		super();
+		this.id = id;
+		this.numero = numero;
+		this.potreros = potreros;
+		this.fecha = fecha;
+		this.kgMsHa = kgMsHa;
+		this.hojas = hojas;
+		this.nudos = nudos;
+		this.observaciones = observaciones;
+		this.usuario = usuario;
+	}
+
+	
+
+	
 	public Long getId() {
 		return id;
 	}
@@ -126,24 +148,6 @@ public class Recorrida implements Serializable {
 		this.usuario = usuario;
 	}
 	
-	public Recorrida() {
-		super();
-	}
-
-	public Recorrida(Long id, String numero, Set<Potrero> potreros, Date fecha, Long kgMsHa, Long hojas, Long nudos,
-			String observaciones, Usuario usuario) {
-		super();
-		this.id = id;
-		this.numero = numero;
-		this.potreros = potreros;
-		this.fecha = fecha;
-		this.kgMsHa = kgMsHa;
-		this.hojas = hojas;
-		this.nudos = nudos;
-		this.observaciones = observaciones;
-		this.usuario = usuario;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;

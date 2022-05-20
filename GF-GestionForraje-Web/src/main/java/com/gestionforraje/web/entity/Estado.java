@@ -34,7 +34,7 @@ public class Estado implements Serializable{
 	public Long getId() {
 		return id;
 	}
-
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "estado")
     private List<Potrero> potreros;
 
@@ -99,8 +99,6 @@ public class Estado implements Serializable{
 	public String toString() {
 		return "Estado [id=" + id + ", nombre=" + nombre + ", potreros=" + potreros + "]";
 	}
-
-	
 	
 	
 }

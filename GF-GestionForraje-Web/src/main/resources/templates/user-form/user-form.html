@@ -33,7 +33,7 @@
 	<div class="form-group row">
 		<label th:text="Perfiles" class="col-lg-3 col-form-label form-control-label"></label>
 		<div class="col-lg-9">
-			<select class="form-control" size="3" th:field="${userForm.perfiles}" th:disabled="${disableFields}">
+			<select class="form-control" size="2" th:field="${userForm.perfiles}" th:disabled="${disableFields}">
 				<option th:each="perfil :${perfiles}" th:value="${perfil.id}" th:text="${perfil.nombre}">
 				</option>
 			</select>

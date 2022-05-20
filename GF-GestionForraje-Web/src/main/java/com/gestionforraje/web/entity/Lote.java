@@ -3,12 +3,18 @@ package com.gestionforraje.web.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -33,56 +39,94 @@ public class Lote implements Serializable{
 	private long nAnimales;
 	
 	private BigDecimal consumoForrajeAnimal;
+	/*
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "lote_predios",
+				joinColumns = @JoinColumn(name="lote_id"),
+				inverseJoinColumns = @JoinColumn(name="predio_id"))
+	private Set<Predio> predios;
+	*/
 	
-	private String observaciones;
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "predio_id")
+    private Predio predio;	
+	
+	
+	public Lote() {
+		super();
+	}
+
+
+	public Lote(Long id, String nombre, Date fecha, long nAnimales, BigDecimal consumoForrajeAnimal, Predio predio) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.fecha = fecha;
+		this.nAnimales = nAnimales;
+		this.consumoForrajeAnimal = consumoForrajeAnimal;
+		this.predio = predio;
+	}
+
 
 	public Long getId() {
 		return id;
 	}
 
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 
 	public String getNombre() {
 		return nombre;
 	}
 
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 
 	public Date getFecha() {
 		return fecha;
 	}
 
+
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
+
 
 	public long getnAnimales() {
 		return nAnimales;
 	}
 
+
 	public void setnAnimales(long nAnimales) {
 		this.nAnimales = nAnimales;
 	}
+
 
 	public BigDecimal getConsumoForrajeAnimal() {
 		return consumoForrajeAnimal;
 	}
 
+
 	public void setConsumoForrajeAnimal(BigDecimal consumoForrajeAnimal) {
 		this.consumoForrajeAnimal = consumoForrajeAnimal;
 	}
 
-	public String getObservaciones() {
-		return observaciones;
+
+	public Predio getPredio() {
+		return predio;
 	}
 
-	public void setObservaciones(String observaciones) {
-		this.observaciones = observaciones;
+
+	public void setPredio(Predio predio) {
+		this.predio = predio;
 	}
+
 
 	@Override
 	public int hashCode() {
@@ -93,9 +137,10 @@ public class Lote implements Serializable{
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + (int) (nAnimales ^ (nAnimales >>> 32));
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
-		result = prime * result + ((observaciones == null) ? 0 : observaciones.hashCode());
+		result = prime * result + ((predio == null) ? 0 : predio.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -128,21 +173,23 @@ public class Lote implements Serializable{
 				return false;
 		} else if (!nombre.equals(other.nombre))
 			return false;
-		if (observaciones == null) {
-			if (other.observaciones != null)
+		if (predio == null) {
+			if (other.predio != null)
 				return false;
-		} else if (!observaciones.equals(other.observaciones))
+		} else if (!predio.equals(other.predio))
 			return false;
 		return true;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Lote [id=" + id + ", nombre=" + nombre + ", fecha=" + fecha + ", nAnimales=" + nAnimales
-				+ ", consumoForrajeAnimal=" + consumoForrajeAnimal + ", observaciones=" + observaciones + "]";
+				+ ", consumoForrajeAnimal=" + consumoForrajeAnimal + ", predio=" + predio + "]";
 	}
 	
 	
-
+	
+	
 
 }
