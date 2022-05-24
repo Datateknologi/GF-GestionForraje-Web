@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gestionforraje.web.Exeption.CustomeFieldValidationException;
 import com.gestionforraje.web.entity.Predio;
 import com.gestionforraje.web.entity.Usuario;
 import com.gestionforraje.web.repository.PredioRepository;
@@ -23,7 +24,7 @@ public class PredioServiceImpl implements PredioService{
 	private boolean checkNombreAvailable(Predio predio) throws Exception{
 		Optional<Predio> predioFound = repository.findByNombre(predio.getNombre());
 		if(predioFound.isPresent()){
-			throw new Exception("El nombre de predio ya existe");
+			throw new CustomeFieldValidationException("El nombre de predio ya existe","nombre");
 		}
 		return true;
 	}

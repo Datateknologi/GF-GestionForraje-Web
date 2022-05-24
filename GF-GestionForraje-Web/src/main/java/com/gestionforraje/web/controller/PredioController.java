@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.gestionforraje.web.Exeption.CustomeFieldValidationException;
 import com.gestionforraje.web.entity.Predio;
 import com.gestionforraje.web.service.PredioService;
 
@@ -43,7 +44,13 @@ public class PredioController {
 				model.addAttribute("predioForm", new Predio());
 				model.addAttribute("listTab","active");
 			
-			} catch (Exception e) {
+			} catch (CustomeFieldValidationException cfve) {
+				result.rejectValue(cfve.getFieldName(),null,cfve.getMessage());
+				model.addAttribute("predioForm", predio);
+				model.addAttribute("formTab","active");
+				model.addAttribute("predioList", predioService.getAllPredios());
+			
+			}catch (Exception e) {
 				model.addAttribute("formErrorMessage",e.getMessage());
 				model.addAttribute("predioForm", predio);
 				model.addAttribute("formTab","active");

@@ -11,7 +11,6 @@ public class CustomeFieldValidationException extends Exception {
 	private String fieldName;
 	
 	public CustomeFieldValidationException(String message, String fieldName) {
-		
 		super(message);
 		this.fieldName = fieldName;
 		

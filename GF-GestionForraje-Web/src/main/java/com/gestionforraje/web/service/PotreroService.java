@@ -6,4 +6,6 @@ public interface PotreroService {
 	
 	public Iterable<Potrero> getAllPotreros();
 
+	public Potrero createPotrero(Potrero potrero) throws Exception;
+
 }

@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -34,7 +35,7 @@ public class Estado implements Serializable{
 	public Long getId() {
 		return id;
 	}
-	
+	@Transient
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "estado")
     private List<Potrero> potreros;
 

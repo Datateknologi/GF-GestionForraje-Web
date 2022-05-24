@@ -14,9 +14,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Potrero implements Serializable{
@@ -33,12 +36,15 @@ public class Potrero implements Serializable{
 	private Long id;
 	
 	@Column
+	@NotBlank
 	private String nombre;
 	
 	@Column
+	@NotNull
 	private Long areaHa;
 	
 	@Column
+	@NotBlank
 	private String pastura;
 	/*
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -55,17 +61,20 @@ public class Potrero implements Serializable{
 	
 	*/
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "estado_id")
-    private Estado estado;
+	@JoinColumn(name = "estado_id")
+	@NotNull
+	private Estado estado;
 	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "predio_id")
-    private Predio predio;	
+	@JoinColumn(name = "predio_id")
+	@NotNull
+	private Predio predio;	
 	
 	
 		
 	@Column
+	@NotBlank
 	private String observaciones;
 	
 			
@@ -74,8 +83,9 @@ public class Potrero implements Serializable{
 	}
 
 
-	public Potrero(Long id, String nombre, Long areaHa, String pastura, Estado estado, Predio predio,
-			String observaciones) {
+	
+	public Potrero(Long id, @NotBlank String nombre, @NotNull Long areaHa, @NotBlank String pastura, Estado estado,
+			Predio predio, @NotBlank String observaciones) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -85,6 +95,9 @@ public class Potrero implements Serializable{
 		this.predio = predio;
 		this.observaciones = observaciones;
 	}
+
+
+
 
 
 	public Long getId() {
