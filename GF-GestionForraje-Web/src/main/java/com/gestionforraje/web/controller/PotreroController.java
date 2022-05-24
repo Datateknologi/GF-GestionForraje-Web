@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gestionforraje.web.Exeption.CustomeFieldValidationException;
@@ -76,5 +77,18 @@ public class PotreroController {
 		model.addAttribute("potreroList", potreroService.getAllPotreros());
 		return "potrero-form/potrero-view";
 	}
+	
+	
+	
+	 @GetMapping("/deletePotrero/{id}")
+	 public String deletePotrero(Model model, @PathVariable(name="id")Long id) {
+		 try {
+			potreroService.deletePotrero(id);
+		} catch (Exception e) {
+			model.addAttribute("listErrorMessage",e.getMessage());
+		}
+		 return "redirect:/potreroForm";
+	 }
+	
 
 }

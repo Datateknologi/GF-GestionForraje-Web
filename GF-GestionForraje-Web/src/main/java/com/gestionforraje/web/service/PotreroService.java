@@ -2,10 +2,14 @@ package com.gestionforraje.web.service;
 
 import com.gestionforraje.web.entity.Potrero;
 
+
 public interface PotreroService {
 	
 	public Iterable<Potrero> getAllPotreros();
 
 	public Potrero createPotrero(Potrero potrero) throws Exception;
+	
+	public Potrero getPotreroById(Long id) throws Exception;
 
+	public void deletePotrero(Long id) throws Exception;
 }
