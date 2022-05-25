@@ -46,7 +46,23 @@ public class PotreroServiceImpl implements PotreroService{
 	public Potrero getPotreroById(Long id) throws Exception {
 		return repository.findById(id).orElseThrow(() -> new Exception("El Potrero no existe"));
 	}
-
+	
+	@Override
+	public Potrero updatePotrero(Potrero fromPotrero) throws Exception {
+		Potrero toPotrero = getPotreroById(fromPotrero.getId());
+		mapPotrero(fromPotrero, toPotrero);
+		return repository.save(toPotrero);
+	}
+	
+	protected void mapPotrero(Potrero from,Potrero to) {
+		to.setNombre(from.getNombre());
+		to.setAreaHa(from.getAreaHa());
+		to.setPastura(from.getPastura());
+		to.setEstado(from.getEstado());
+		to.setPredio(from.getPredio());
+		to.setObservaciones(from.getObservaciones());	
+	}
+	
 	@Override
 	public void deletePotrero(Long id) throws Exception {
 		Potrero potrero = getPotreroById(id);
