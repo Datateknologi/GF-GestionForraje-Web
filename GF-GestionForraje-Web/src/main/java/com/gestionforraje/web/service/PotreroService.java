@@ -1,7 +1,7 @@
 package com.gestionforraje.web.service;
 
 import com.gestionforraje.web.entity.Potrero;
-import com.gestionforraje.web.entity.Predio;
+
 
 
 public interface PotreroService {

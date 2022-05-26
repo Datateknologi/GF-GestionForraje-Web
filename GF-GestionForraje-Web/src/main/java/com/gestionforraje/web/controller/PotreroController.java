@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gestionforraje.web.Exeption.CustomeFieldValidationException;
 import com.gestionforraje.web.entity.Potrero;
-import com.gestionforraje.web.entity.Predio;
 import com.gestionforraje.web.repository.EstadoRepository;
 import com.gestionforraje.web.repository.PredioRepository;
 import com.gestionforraje.web.service.PotreroService;
