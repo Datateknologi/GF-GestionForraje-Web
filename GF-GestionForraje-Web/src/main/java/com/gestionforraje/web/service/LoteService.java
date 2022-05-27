@@ -15,4 +15,6 @@ public interface LoteService {
 	public Lote getLoteById(Long id) throws Exception;
 
 	public Lote updateLote(Lote lote) throws Exception;
+
+	public void deleteLote(Long id) throws Exception;
 }

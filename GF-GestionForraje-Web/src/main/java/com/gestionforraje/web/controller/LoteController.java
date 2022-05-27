@@ -117,6 +117,16 @@ public class LoteController {
 		public String cancelEditLote(ModelMap model) {
 			return "redirect:/loteForm";
 		}
-	
+
+
+	 @GetMapping("/deleteLote/{id}")
+	 public String deleteLote(Model model, @PathVariable(name="id")Long id) {
+		 try {
+			loteService.deleteLote(id);
+		} catch (Exception e) {
+			model.addAttribute("listErrorMessage",e.getMessage());
+		}
+		 return "redirect:/loteForm";
+	 }
 
 }

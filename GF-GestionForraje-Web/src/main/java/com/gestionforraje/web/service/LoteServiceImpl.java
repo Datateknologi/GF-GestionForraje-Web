@@ -64,6 +64,13 @@ public class LoteServiceImpl implements LoteService{
 		to.setPredio(from.getPredio());
 		to.setObservaciones(from.getObservaciones());	
 	}
+
+	@Override
+	public void deleteLote(Long id) throws Exception {
+		Lote lote = getLoteById(id);
+		repository.delete(lote);
+		
+	}
 	
 
 }
