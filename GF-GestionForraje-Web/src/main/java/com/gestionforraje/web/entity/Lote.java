@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,8 +12,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
+
+
 
 @Entity
 public class Lote implements Serializable{
@@ -30,12 +34,18 @@ public class Lote implements Serializable{
 	private Long id;
 	
 	@Column
+	@NotBlank
 	private String nombre;
+	
 	
 	private Date fecha;
 	
-	private long nAnimales;
+	@Column
+	@NotNull
+	private Long nAnimales;
 	
+	@Column
+	@NotNull
 	private BigDecimal consumoForrajeAnimal;
 	/*
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -47,8 +57,11 @@ public class Lote implements Serializable{
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "predio_id")
+	@NotNull
     private Predio predio;
 	
+	@Column
+	@NotBlank
 	private String observaciones;
 	
 	
@@ -57,7 +70,7 @@ public class Lote implements Serializable{
 	}
 
 
-	public Lote(Long id, String nombre, Date fecha, long nAnimales, BigDecimal consumoForrajeAnimal, Predio predio,
+	public Lote(Long id, String nombre, Date fecha, Long nAnimales, BigDecimal consumoForrajeAnimal, Predio predio,
 			String observaciones) {
 		super();
 		this.id = id;
@@ -100,12 +113,12 @@ public class Lote implements Serializable{
 	}
 
 
-	public long getnAnimales() {
+	public Long getnAnimales() {
 		return nAnimales;
 	}
 
 
-	public void setnAnimales(long nAnimales) {
+	public void setnAnimales(Long nAnimales) {
 		this.nAnimales = nAnimales;
 	}
 
@@ -141,13 +154,77 @@ public class Lote implements Serializable{
 
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((consumoForrajeAnimal == null) ? 0 : consumoForrajeAnimal.hashCode());
+		result = prime * result + ((fecha == null) ? 0 : fecha.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((nAnimales == null) ? 0 : nAnimales.hashCode());
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result + ((observaciones == null) ? 0 : observaciones.hashCode());
+		result = prime * result + ((predio == null) ? 0 : predio.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Lote other = (Lote) obj;
+		if (consumoForrajeAnimal == null) {
+			if (other.consumoForrajeAnimal != null)
+				return false;
+		} else if (!consumoForrajeAnimal.equals(other.consumoForrajeAnimal))
+			return false;
+		if (fecha == null) {
+			if (other.fecha != null)
+				return false;
+		} else if (!fecha.equals(other.fecha))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (nAnimales == null) {
+			if (other.nAnimales != null)
+				return false;
+		} else if (!nAnimales.equals(other.nAnimales))
+			return false;
+		if (nombre == null) {
+			if (other.nombre != null)
+				return false;
+		} else if (!nombre.equals(other.nombre))
+			return false;
+		if (observaciones == null) {
+			if (other.observaciones != null)
+				return false;
+		} else if (!observaciones.equals(other.observaciones))
+			return false;
+		if (predio == null) {
+			if (other.predio != null)
+				return false;
+		} else if (!predio.equals(other.predio))
+			return false;
+		return true;
+	}
+
+
+	@Override
 	public String toString() {
 		return "Lote [id=" + id + ", nombre=" + nombre + ", fecha=" + fecha + ", nAnimales=" + nAnimales
 				+ ", consumoForrajeAnimal=" + consumoForrajeAnimal + ", predio=" + predio + ", observaciones="
 				+ observaciones + "]";
 	}
+
+
 	
-		
 	
 	
 

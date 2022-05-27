@@ -20,6 +20,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Potrero implements Serializable{
@@ -62,12 +63,14 @@ public class Potrero implements Serializable{
 	*/
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "estado_id")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@NotNull
 	private Estado estado;
 	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "predio_id")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@NotNull
 	private Predio predio;	
 	

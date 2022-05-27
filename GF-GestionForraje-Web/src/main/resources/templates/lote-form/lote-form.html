@@ -1,26 +1,30 @@
-<form class="form" role="form" autocomplete="off" th:object="${loteForm}" >
+<form class="form" role="form" autocomplete="off" th:object="${loteForm}" th:action="@{/loteForm}" method="post" >
 	<div class="form-group row">
 		<label class="col-lg-3 col-form-label form-control-label">Nombre</label>
 		<div class="col-lg-9">
 			<input class="form-control" type="text" th:field="${loteForm.nombre}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Name Error</div>
 		</div>
 	</div>
 	<div class="form-group row">
 		<label class="col-lg-3 col-form-label form-control-label">Fecha</label>
 		<div class="col-lg-9">
-			<input input type="text" id="datepicker" th:field="${loteForm.fecha}">
+			<input type="text" id="datepicker" th:field="${loteForm.fecha}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}">Name Error</div>
 		</div>
 	</div>
 	<div class="form-group row">
 		<label class="col-lg-3 col-form-label form-control-label">Número de Animales</label>
 		<div class="col-lg-9">
 			<input class="form-control" type="text" th:field="${loteForm.nAnimales}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('nAnimales')}" th:errors="*{nAnimales}">Name Error</div>
 		</div>
 	</div>
 	<div class="form-group row">
 		<label class="col-lg-3 col-form-label form-control-label">Consumo de Forraje Animal</label>
 		<div class="col-lg-9">
 			<input class="form-control" type="text" th:field="${loteForm.consumoForrajeAnimal}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('consumoForrajeAnimal')}" th:errors="*{consumoForrajeAnimal}">Name Error</div>
 		</div>
 	</div>
 	<div class="form-group row">
@@ -39,15 +43,17 @@
 		<label class="col-lg-3 col-form-label form-control-label">Observaciones</label>
 		<div class="col-lg-9">
 			<input class="form-control" type="text" th:field="${loteForm.observaciones}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('observaciones')}" th:errors="*{observaciones}">Name Error</div>
 		</div>
 	</div>
 	<div class="form-group row">
 		<div class="col-lg-12 text-center">
 			<input type="reset" class="btn btn-secondary" value="Cancel">
-			<input type="button" class="btn btn-primary"
+			<input type="submit" class="btn btn-primary"
 				value="Save Changes">
 		</div>
 	</div>
+	<div class="alert alert-danger" th:if="${formErrorMessage}" th:text="${formErrorMessage}">Error Message</div>
 </form>
 <script>
   $(function() {
