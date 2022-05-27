@@ -41,4 +41,29 @@ public class LoteServiceImpl implements LoteService{
 		return lote;
 	}
 
+
+	@Override
+	public Lote getLoteById(Long id) throws Exception {
+		return repository.findById(id).orElseThrow(() -> new Exception("El Lote no existe"));
+
+	}
+
+
+	@Override
+	public Lote updateLote(Lote fromLote) throws Exception {
+		Lote toLote = getLoteById(fromLote.getId());
+		mapLote(fromLote, toLote);
+		return repository.save(toLote);
+	}
+	
+	protected void mapLote(Lote from,Lote to) {
+		to.setNombre(from.getNombre());
+		to.setFecha(from.getFecha());
+		to.setnAnimales(from.getnAnimales());
+		to.setConsumoForrajeAnimal(from.getConsumoForrajeAnimal());;
+		to.setPredio(from.getPredio());
+		to.setObservaciones(from.getObservaciones());	
+	}
+	
+
 }

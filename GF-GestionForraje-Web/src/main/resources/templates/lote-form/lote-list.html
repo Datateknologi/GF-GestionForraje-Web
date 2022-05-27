@@ -22,10 +22,11 @@
 			<td th:text="${lote.predio.nombre}"></td>
 			<td th:text="${lote.observaciones}"></td>
 			<td>
-				<a href="#"><i class="fas fa-edit"></i></a>
-				<a href="#"><i class="fas fa-user-times"></i></a>
+				<a href="#" th:href="@{'/editLote/'+ ${lote.id}}"><i class="fas fa-edit"></i></a>
+				<a href="#" th:onclick="'javascript:confirmDelete(\''+ ${lote.id} +'\');'"><i class="fas fa-user-times"></i></a>
 			</td>
 		</tr>
 		</tbody>
 	</table>
+	<div class="alert alert-danger text-center" th:if="${listErrorMessage}" th:text="${listErrorMessage}">Error Message</div>
 </div>
