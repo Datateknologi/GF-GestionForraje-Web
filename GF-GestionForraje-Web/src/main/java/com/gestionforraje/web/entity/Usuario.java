@@ -66,6 +66,7 @@ public class Usuario implements Serializable{
 				inverseJoinColumns = @JoinColumn(name="perfil_id"))
 	private Set<Perfil> perfiles;
 	
+	@Transient
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
     private List<Recorrida> recoridas;
 	

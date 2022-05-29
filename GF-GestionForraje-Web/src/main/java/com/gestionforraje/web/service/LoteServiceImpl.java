@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.gestionforraje.web.Exeption.CustomeFieldValidationException;
 import com.gestionforraje.web.entity.Lote;
-import com.gestionforraje.web.entity.Potrero;
 import com.gestionforraje.web.repository.LoteRepository;
 
 

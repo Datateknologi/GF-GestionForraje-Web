@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -31,8 +31,6 @@ public class Recorrida implements Serializable {
 	@GenericGenerator(name="native", strategy="native")
 	private Long id;
 	
-	@Column
-	private String numero;
 	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "recorrida_potreros",
@@ -59,11 +57,11 @@ public class Recorrida implements Serializable {
 		super();
 	}
 
-	public Recorrida(Long id, String numero, Set<Potrero> potreros, Date fecha, Long kgMsHa, Long hojas, Long nudos,
+
+	public Recorrida(Long id, Set<Potrero> potreros, Date fecha, Long kgMsHa, Long hojas, Long nudos,
 			String observaciones, Usuario usuario) {
 		super();
 		this.id = id;
-		this.numero = numero;
 		this.potreros = potreros;
 		this.fecha = fecha;
 		this.kgMsHa = kgMsHa;
@@ -73,81 +71,87 @@ public class Recorrida implements Serializable {
 		this.usuario = usuario;
 	}
 
-	
 
-	
 	public Long getId() {
 		return id;
 	}
+
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getNumero() {
-		return numero;
-	}
-
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
 
 	public Set<Potrero> getPotreros() {
 		return potreros;
 	}
 
+
 	public void setPotreros(Set<Potrero> potreros) {
 		this.potreros = potreros;
 	}
+
 
 	public Date getFecha() {
 		return fecha;
 	}
 
+
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
+
 
 	public Long getKgMsHa() {
 		return kgMsHa;
 	}
 
+
 	public void setKgMsHa(Long kgMsHa) {
 		this.kgMsHa = kgMsHa;
 	}
+
 
 	public Long getHojas() {
 		return hojas;
 	}
 
+
 	public void setHojas(Long hojas) {
 		this.hojas = hojas;
 	}
+
 
 	public Long getNudos() {
 		return nudos;
 	}
 
+
 	public void setNudos(Long nudos) {
 		this.nudos = nudos;
 	}
+
 
 	public String getObservaciones() {
 		return observaciones;
 	}
 
+
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
 	}
+
 
 	public Usuario getUsuario() {
 		return usuario;
 	}
 
+
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -157,12 +161,12 @@ public class Recorrida implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((kgMsHa == null) ? 0 : kgMsHa.hashCode());
 		result = prime * result + ((nudos == null) ? 0 : nudos.hashCode());
-		result = prime * result + ((numero == null) ? 0 : numero.hashCode());
 		result = prime * result + ((observaciones == null) ? 0 : observaciones.hashCode());
 		result = prime * result + ((potreros == null) ? 0 : potreros.hashCode());
 		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -198,11 +202,6 @@ public class Recorrida implements Serializable {
 				return false;
 		} else if (!nudos.equals(other.nudos))
 			return false;
-		if (numero == null) {
-			if (other.numero != null)
-				return false;
-		} else if (!numero.equals(other.numero))
-			return false;
 		if (observaciones == null) {
 			if (other.observaciones != null)
 				return false;
@@ -221,12 +220,13 @@ public class Recorrida implements Serializable {
 		return true;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Recorrida [id=" + id + ", numero=" + numero + ", potreros=" + potreros + ", fecha=" + fecha
-				+ ", kgMsHa=" + kgMsHa + ", hojas=" + hojas + ", nudos=" + nudos + ", observaciones=" + observaciones
-				+ ", usuario=" + usuario + "]";
+		return "Recorrida [id=" + id + ", potreros=" + potreros + ", fecha=" + fecha + ", kgMsHa=" + kgMsHa + ", hojas="
+				+ hojas + ", nudos=" + nudos + ", observaciones=" + observaciones + ", usuario=" + usuario + "]";
 	}
+
 	
 	
 
