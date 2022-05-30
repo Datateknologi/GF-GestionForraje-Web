@@ -4,6 +4,7 @@
 		<tr>
 			<th scope="col">#</th>
 			<th scope="col">Fecha</th>
+			<th scope="col">Potrero</th>
 			<th scope="col">Kg Ms/Ha</th>
 			<th scope="col">Hojas</th>
 			<th scope="col">Nudos</th>
@@ -15,6 +16,7 @@
 		<tr th:each="recorrida: ${recorridaList}">
 			<td th:text="${recorrida.id}"></td>
 			<td th:text="${recorrida.fecha}"></td>
+			<td th:text="${recorrida.potrero.nombre}"></td>
 			<td th:text="${recorrida.kgMsHa}"> </td>
 			<td th:text="${recorrida.hojas}"></td>
 			<td th:text="${recorrida.nudos}"></td>

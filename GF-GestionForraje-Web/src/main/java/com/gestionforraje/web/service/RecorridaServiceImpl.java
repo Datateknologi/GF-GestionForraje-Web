@@ -18,4 +18,11 @@ public class RecorridaServiceImpl implements RecorridaService{
 		
 	}
 
+
+	@Override
+	public Recorrida createRecorrida(Recorrida recorrida) throws Exception {
+		recorrida = repository.save(recorrida);
+		return recorrida;
+	}
+
 }

@@ -2,20 +2,22 @@ package com.gestionforraje.web.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Recorrida implements Serializable {
@@ -31,21 +33,37 @@ public class Recorrida implements Serializable {
 	@GenericGenerator(name="native", strategy="native")
 	private Long id;
 	
-	
+	/*
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "recorrida_potreros",
 				joinColumns = @JoinColumn(name="recorrida_id"),
 				inverseJoinColumns = @JoinColumn(name="potrero_id"))
+	@NotNull
 	private Set<Potrero> potreros;
+	*/
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "potrero_id")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@NotNull
+	private Potrero potrero;
 	
 	private Date fecha;
 	
+	@Column
+	@NotNull
 	private Long kgMsHa;
 	
+	@Column
+	@NotNull
 	private Long hojas;
 	
+	@Column
+	@NotNull
 	private Long nudos;
 	
+	@Column
+	@NotBlank
 	private String observaciones;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -58,11 +76,11 @@ public class Recorrida implements Serializable {
 	}
 
 
-	public Recorrida(Long id, Set<Potrero> potreros, Date fecha, Long kgMsHa, Long hojas, Long nudos,
-			String observaciones, Usuario usuario) {
+	public Recorrida(Long id, @NotNull Potrero potrero, Date fecha, @NotNull Long kgMsHa, @NotNull Long hojas,
+			@NotNull Long nudos, @NotBlank String observaciones, Usuario usuario) {
 		super();
 		this.id = id;
-		this.potreros = potreros;
+		this.potrero = potrero;
 		this.fecha = fecha;
 		this.kgMsHa = kgMsHa;
 		this.hojas = hojas;
@@ -82,13 +100,13 @@ public class Recorrida implements Serializable {
 	}
 
 
-	public Set<Potrero> getPotreros() {
-		return potreros;
+	public Potrero getPotrero() {
+		return potrero;
 	}
 
 
-	public void setPotreros(Set<Potrero> potreros) {
-		this.potreros = potreros;
+	public void setPotrero(Potrero potrero) {
+		this.potrero = potrero;
 	}
 
 
@@ -162,7 +180,7 @@ public class Recorrida implements Serializable {
 		result = prime * result + ((kgMsHa == null) ? 0 : kgMsHa.hashCode());
 		result = prime * result + ((nudos == null) ? 0 : nudos.hashCode());
 		result = prime * result + ((observaciones == null) ? 0 : observaciones.hashCode());
-		result = prime * result + ((potreros == null) ? 0 : potreros.hashCode());
+		result = prime * result + ((potrero == null) ? 0 : potrero.hashCode());
 		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
 		return result;
 	}
@@ -207,10 +225,10 @@ public class Recorrida implements Serializable {
 				return false;
 		} else if (!observaciones.equals(other.observaciones))
 			return false;
-		if (potreros == null) {
-			if (other.potreros != null)
+		if (potrero == null) {
+			if (other.potrero != null)
 				return false;
-		} else if (!potreros.equals(other.potreros))
+		} else if (!potrero.equals(other.potrero))
 			return false;
 		if (usuario == null) {
 			if (other.usuario != null)
@@ -223,10 +241,12 @@ public class Recorrida implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Recorrida [id=" + id + ", potreros=" + potreros + ", fecha=" + fecha + ", kgMsHa=" + kgMsHa + ", hojas="
+		return "Recorrida [id=" + id + ", potrero=" + potrero + ", fecha=" + fecha + ", kgMsHa=" + kgMsHa + ", hojas="
 				+ hojas + ", nudos=" + nudos + ", observaciones=" + observaciones + ", usuario=" + usuario + "]";
 	}
 
+
+	
 	
 	
 

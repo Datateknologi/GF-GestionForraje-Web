@@ -68,15 +68,27 @@ public class Usuario implements Serializable{
 	
 	@Transient
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
-    private List<Recorrida> recoridas;
+    private List<Recorrida> recorridas;
 	
 	public Usuario() {
 		super();
 	}
 
-	public Usuario(Long id) {
+	public Usuario(Long id,
+			@NotBlank @Size(min = 4, max = 10, message = "No se cumplen las reglas del tamaño min=4, max=10") String nombre,
+			@NotBlank @Size(min = 4, max = 10, message = "No se cumplen las reglas del tamaño min=4, max=10") String apellido,
+			@NotBlank String email, @NotBlank String usuario, @NotBlank String password, String confirmPassword,
+			Set<Perfil> perfiles, List<Recorrida> recorridas) {
 		super();
 		this.id = id;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.email = email;
+		this.usuario = usuario;
+		this.password = password;
+		this.confirmPassword = confirmPassword;
+		this.perfiles = perfiles;
+		this.recorridas = recorridas;
 	}
 
 	public Long getId() {
@@ -143,12 +155,12 @@ public class Usuario implements Serializable{
 		this.perfiles = perfiles;
 	}
 
-	public List<Recorrida> getRecoridas() {
-		return recoridas;
+	public List<Recorrida> getRecorridas() {
+		return recorridas;
 	}
 
-	public void setRecoridas(List<Recorrida> recoridas) {
-		this.recoridas = recoridas;
+	public void setRecorridas(List<Recorrida> recorridas) {
+		this.recorridas = recorridas;
 	}
 
 	@Override
@@ -162,7 +174,7 @@ public class Usuario implements Serializable{
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((perfiles == null) ? 0 : perfiles.hashCode());
-		result = prime * result + ((recoridas == null) ? 0 : recoridas.hashCode());
+		result = prime * result + ((recorridas == null) ? 0 : recorridas.hashCode());
 		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
 		return result;
 	}
@@ -211,10 +223,10 @@ public class Usuario implements Serializable{
 				return false;
 		} else if (!perfiles.equals(other.perfiles))
 			return false;
-		if (recoridas == null) {
-			if (other.recoridas != null)
+		if (recorridas == null) {
+			if (other.recorridas != null)
 				return false;
-		} else if (!recoridas.equals(other.recoridas))
+		} else if (!recorridas.equals(other.recorridas))
 			return false;
 		if (usuario == null) {
 			if (other.usuario != null)
@@ -228,10 +240,9 @@ public class Usuario implements Serializable{
 	public String toString() {
 		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", email=" + email + ", usuario="
 				+ usuario + ", password=" + password + ", confirmPassword=" + confirmPassword + ", perfiles=" + perfiles
-				+ ", recoridas=" + recoridas + "]";
+				+ ", recorridas=" + recorridas + "]";
 	}
 
-	
 	
 	
 	

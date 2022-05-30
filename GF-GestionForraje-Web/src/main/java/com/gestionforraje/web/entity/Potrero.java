@@ -2,7 +2,7 @@ package com.gestionforraje.web.entity;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,15 +11,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -80,15 +81,17 @@ public class Potrero implements Serializable{
 	@NotBlank
 	private String observaciones;
 	
+	@Transient
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "potrero")
+    private List<Recorrida> recorridas;
 			
 	public Potrero() {
 		super();
 	}
 
-
-	
-	public Potrero(Long id, @NotBlank String nombre, @NotNull Long areaHa, @NotBlank String pastura, Estado estado,
-			Predio predio, @NotBlank String observaciones) {
+	public Potrero(Long id, @NotBlank String nombre, @NotNull Long areaHa, @NotBlank String pastura,
+			@NotNull Estado estado, @NotNull Predio predio, @NotBlank String observaciones,
+			List<Recorrida> recorridas) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -97,81 +100,72 @@ public class Potrero implements Serializable{
 		this.estado = estado;
 		this.predio = predio;
 		this.observaciones = observaciones;
+		this.recorridas = recorridas;
 	}
-
-
-
-
 
 	public Long getId() {
 		return id;
 	}
 
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 
 	public String getNombre() {
 		return nombre;
 	}
 
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
 
 	public Long getAreaHa() {
 		return areaHa;
 	}
 
-
 	public void setAreaHa(Long areaHa) {
 		this.areaHa = areaHa;
 	}
-
 
 	public String getPastura() {
 		return pastura;
 	}
 
-
 	public void setPastura(String pastura) {
 		this.pastura = pastura;
 	}
-
 
 	public Estado getEstado() {
 		return estado;
 	}
 
-
 	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
-
 
 	public Predio getPredio() {
 		return predio;
 	}
 
-
 	public void setPredio(Predio predio) {
 		this.predio = predio;
 	}
-
 
 	public String getObservaciones() {
 		return observaciones;
 	}
 
-
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
 	}
 
+	public List<Recorrida> getRecorridas() {
+		return recorridas;
+	}
+
+	public void setRecorridas(List<Recorrida> recorridas) {
+		this.recorridas = recorridas;
+	}
 
 	@Override
 	public int hashCode() {
@@ -184,9 +178,9 @@ public class Potrero implements Serializable{
 		result = prime * result + ((observaciones == null) ? 0 : observaciones.hashCode());
 		result = prime * result + ((pastura == null) ? 0 : pastura.hashCode());
 		result = prime * result + ((predio == null) ? 0 : predio.hashCode());
+		result = prime * result + ((recorridas == null) ? 0 : recorridas.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -232,15 +226,23 @@ public class Potrero implements Serializable{
 				return false;
 		} else if (!predio.equals(other.predio))
 			return false;
+		if (recorridas == null) {
+			if (other.recorridas != null)
+				return false;
+		} else if (!recorridas.equals(other.recorridas))
+			return false;
 		return true;
 	}
-
 
 	@Override
 	public String toString() {
 		return "Potrero [id=" + id + ", nombre=" + nombre + ", areaHa=" + areaHa + ", pastura=" + pastura + ", estado="
-				+ estado + ", predio=" + predio + ", observaciones=" + observaciones + "]";
+				+ estado + ", predio=" + predio + ", observaciones=" + observaciones + ", recorridas=" + recorridas
+				+ "]";
 	}
+
+	
+	
 	
 			
 	

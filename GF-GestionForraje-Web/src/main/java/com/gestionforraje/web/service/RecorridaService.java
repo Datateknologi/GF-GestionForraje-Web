@@ -6,4 +6,6 @@ public interface RecorridaService {
 	
 	public Iterable<Recorrida> getAllRecorridas();
 
+	public Recorrida createRecorrida(Recorrida recorrida) throws Exception;
+
 }
