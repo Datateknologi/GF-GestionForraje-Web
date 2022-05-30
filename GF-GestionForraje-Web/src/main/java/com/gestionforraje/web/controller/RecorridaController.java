@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gestionforraje.web.Exeption.CustomeFieldValidationException;
-import com.gestionforraje.web.dto.ChangePasswordForm;
 import com.gestionforraje.web.entity.Recorrida;
-import com.gestionforraje.web.entity.Usuario;
 import com.gestionforraje.web.repository.PotreroRepository;
 import com.gestionforraje.web.repository.RecorridaRepository;
 import com.gestionforraje.web.service.PotreroService;
@@ -125,5 +123,16 @@ public class RecorridaController {
 	public String cancelEditUser(ModelMap model) {
 		return "redirect:/recorridaForm";
 	}
+	
+	@GetMapping("/deleteRecorrida/{id}")
+	public String deleteRecorrida(Model model, @PathVariable(name="id")Long id){
+		try {
+			recorridaService.deleteRecorrida(id);
+		} catch (Exception e) {
+			model.addAttribute("listErrorMessage",e.getMessage());
+		}
+		return "redirect:/recorridaForm";
+	}
+
 
 }

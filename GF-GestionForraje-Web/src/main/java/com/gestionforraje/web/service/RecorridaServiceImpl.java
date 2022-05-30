@@ -3,9 +3,8 @@ package com.gestionforraje.web.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.gestionforraje.web.Exeption.UsernameOrIdNotFound;
+import com.gestionforraje.web.entity.Predio;
 import com.gestionforraje.web.entity.Recorrida;
-import com.gestionforraje.web.entity.Usuario;
 import com.gestionforraje.web.repository.RecorridaRepository;
 
 @Service
@@ -30,7 +29,7 @@ public class RecorridaServiceImpl implements RecorridaService{
 
 	@Override
 	public Recorrida getRecorridaById(Long id) throws Exception {
-		return repository.findById(id).orElseThrow(()-> new Exception("El Id de la Recorrida no existe"));
+		return repository.findById(id).orElseThrow(()-> new Exception("La Recorrida no existe"));
 	}
 
 
@@ -50,6 +49,14 @@ public class RecorridaServiceImpl implements RecorridaService{
 		to.setNudos(from.getNudos());
 		to.setObservaciones(from.getObservaciones());
 	
+	}
+
+
+	@Override
+	public void deleteRecorrida(Long id) throws Exception {
+		Recorrida recorrida  = getRecorridaById(id);
+		repository.delete(recorrida);
+		
 	}
 
 }

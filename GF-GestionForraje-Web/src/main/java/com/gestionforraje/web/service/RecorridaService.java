@@ -15,6 +15,8 @@ public interface RecorridaService {
 	public Recorrida getRecorridaById(Long id) throws Exception;
 
 	public Recorrida updateRecorrida(Recorrida recorrida) throws Exception;
+
+	public void deleteRecorrida(Long id) throws Exception;
 	
 	
 
