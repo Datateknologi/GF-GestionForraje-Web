@@ -1,6 +1,7 @@
 package com.gestionforraje.web.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -43,7 +44,7 @@ public class Potrero implements Serializable{
 	
 	@Column
 	@NotNull
-	private Long areaHa;
+	private BigDecimal areaHa;
 	
 	@Column
 	@NotBlank
@@ -78,7 +79,7 @@ public class Potrero implements Serializable{
 	
 		
 	@Column
-	@NotBlank
+	@NotNull
 	private String observaciones;
 	
 	@Transient
@@ -89,9 +90,8 @@ public class Potrero implements Serializable{
 		super();
 	}
 
-	public Potrero(Long id, @NotBlank String nombre, @NotNull Long areaHa, @NotBlank String pastura,
-			@NotNull Estado estado, @NotNull Predio predio, @NotBlank String observaciones,
-			List<Recorrida> recorridas) {
+	public Potrero(Long id, @NotBlank String nombre, @NotNull BigDecimal areaHa, @NotBlank String pastura,
+			@NotNull Estado estado, @NotNull Predio predio, @NotNull String observaciones, List<Recorrida> recorridas) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -119,11 +119,11 @@ public class Potrero implements Serializable{
 		this.nombre = nombre;
 	}
 
-	public Long getAreaHa() {
+	public BigDecimal getAreaHa() {
 		return areaHa;
 	}
 
-	public void setAreaHa(Long areaHa) {
+	public void setAreaHa(BigDecimal areaHa) {
 		this.areaHa = areaHa;
 	}
 
@@ -241,6 +241,7 @@ public class Potrero implements Serializable{
 				+ "]";
 	}
 
+	
 	
 	
 	

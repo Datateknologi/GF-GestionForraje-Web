@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Recorrida Información y Formulario</title>
+	<title>Totales Recorridas Información y Formulario</title>
 	
 	<!--JQUERY-->
 	<script
@@ -60,7 +60,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		//Asegurate que el id que le diste a la tabla sea igual al texto despues del simbolo #
-		$('#recorridaList').DataTable();
+		$('#totalesRecorridasList').DataTable();
 	} );
 </script>
 </head>
@@ -88,39 +88,35 @@
 	<div class="mx-auto col-sm-8 main-section" id="myTab" role="tablist">
 		<ul class="nav nav-tabs justify-content-end">
 			<li class="nav-item">
-			<a class="nav-link" th:classappend="${listTab}" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list" aria-selected="false">List</a>
+			<a class="nav-link active" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list" aria-selected="false">List</a>
 			</li>
 			<li class="nav-item">
-			<a class="nav-link" th:classappend="${formTab}" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="true">Form</a>				   	
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="#" th:href="@{/logout}"><span th:text="${#authentication.getPrincipal().getUsername()}"></span> - <span>Salir</span><span class="float-right"><i class="fas fa-sign-out-alt"></i></span></a>				   	
+			<a class="nav-link" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="true">Form</a>				   	
 			</li>
 		</ul>
 		<div class="tab-content" id="myTabContent">
-			<div class="tab-pane fade show" th:classappend="${listTab}" id="list" role="tabpanel" aria-labelledby="list-tab">
+			<div class="tab-pane fade show active" id="list" role="tabpanel" aria-labelledby="list-tab">
 				<div class="card">
 					<div class="card-header">
-						<h4>Lista de Recorridas</h4>
+						<h4>Lista de Calculos</h4>
 					</div>
 					<div class="card-body">
-						<div th:include="recorrida-form/recorrida-list.html" th:remove="tag"></div>
+						<div th:include="totalesRecorridas-form/totalesRecorridas-list.html" th:remove="tag"></div>
 					</div>
 				</div>
 			</div>
-			<div class="tab-pane fade show" th:classappend="${formTab}" id="form" role="tabpanel" aria-labelledby="form-tab">
+			<div class="tab-pane fade" id="form" role="tabpanel" aria-labelledby="form-tab">
 				<div class="card">
 					<div class="card-header">
-						<h4>Recorrida Información</h4>
+						<h4>Cálculos Totales de Recorridas</h4>
 					</div>
 					<div class="card-body">
-						<div th:include="recorrida-form/recorrida-form.html" th:remove="tag"></div>
+						<div th:include="totalesRecorridas-form/totalesRecorridas-form.html" th:remove="tag"></div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<div th:include="recorrida-form/confirm-delete-dialog.html" th:remove="tag"></div>
 </body>
 </html>

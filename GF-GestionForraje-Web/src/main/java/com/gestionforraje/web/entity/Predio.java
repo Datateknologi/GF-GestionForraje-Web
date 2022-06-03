@@ -1,6 +1,7 @@
 package com.gestionforraje.web.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -36,7 +37,7 @@ public class Predio implements Serializable{
 
 	@Column
 	@NotNull
-	private Long areaHa;
+	private BigDecimal areaHa;
 	
 	@Transient
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "predio")
@@ -54,8 +55,8 @@ public class Predio implements Serializable{
     	super();
     }
 
-	public Predio(Long id, @NotBlank String nombre, @NotNull Long areaHa, List<Potrero> potreros, List<Lote> lotes,
-			@NotBlank String observaciones) {
+	public Predio(Long id, @NotBlank String nombre, @NotNull BigDecimal areaHa, List<Potrero> potreros,
+			List<Lote> lotes, @NotBlank String observaciones) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -81,11 +82,11 @@ public class Predio implements Serializable{
 		this.nombre = nombre;
 	}
 
-	public Long getAreaHa() {
+	public BigDecimal getAreaHa() {
 		return areaHa;
 	}
 
-	public void setAreaHa(Long areaHa) {
+	public void setAreaHa(BigDecimal areaHa) {
 		this.areaHa = areaHa;
 	}
 
@@ -173,6 +174,8 @@ public class Predio implements Serializable{
 		return "Predio [id=" + id + ", nombre=" + nombre + ", areaHa=" + areaHa + ", potreros=" + potreros + ", lotes="
 				+ lotes + ", observaciones=" + observaciones + "]";
 	}
+
+	
 
 	
     	

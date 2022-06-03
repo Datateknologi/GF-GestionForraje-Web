@@ -3,6 +3,7 @@
 		<thead class="thead-light">
 		<tr>
 			<th scope="col">#</th>
+			<th scope="col">Número</th>
 			<th scope="col">Fecha</th>
 			<th scope="col">Potrero</th>
 			<th scope="col">Kg Ms/Ha</th>
@@ -15,6 +16,7 @@
 		<tbody>
 		<tr th:each="recorrida: ${recorridaList}">
 			<td th:text="${recorrida.id}"></td>
+			<td th:text="${recorrida.numero}"></td>
 			<td th:text="${recorrida.fecha}"></td>
 			<td th:text="${recorrida.potrero.nombre}"></td>
 			<td th:text="${recorrida.kgMsHa}"> </td>

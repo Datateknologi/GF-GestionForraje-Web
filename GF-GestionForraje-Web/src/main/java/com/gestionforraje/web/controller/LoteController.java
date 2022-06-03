@@ -29,7 +29,7 @@ public class LoteController {
 	
 	
 	@GetMapping("/loteForm")
-	public String potreroForm(Model model) {
+	public String loteForm(Model model) {
 		model.addAttribute("loteForm", new Lote());
 		model.addAttribute("predios", predioRepository.findAll());
 		model.addAttribute("loteList", loteService.getAllLotes());

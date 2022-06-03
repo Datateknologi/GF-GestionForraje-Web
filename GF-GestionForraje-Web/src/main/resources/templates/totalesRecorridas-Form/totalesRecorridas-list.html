@@ -1,0 +1,25 @@
+<div class="table-responsive">
+	<table id="totalesRecorridasList" class="table table-bordered table-hover table-striped">
+		<thead class="thead-light">
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">Fecha</th>
+			<th scope="col">Total kgMs/Ha</th>
+			<th scope="col">Total Crecimiento kgMs</th>
+			
+			<th></th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr th:each="totalesRecorridas: ${totalesRecorridasList}">
+			<td th:text="${totalesRecorridas.id}"></td>
+			<td th:text="${totalesRecorridas.fecha}"></td>
+			<td th:text="${totalesRecorridas.toatalkgMsHa}"></td>
+			<td th:text="${totalesRecorridas.totalCreckgMs}"></td>
+			<td>
+				<a href="#"><i class="fas fa-edit"></i></a> | <a href="#"><i class="fas fa-user-times"></i></a>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</div>
